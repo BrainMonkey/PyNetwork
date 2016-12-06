@@ -19,12 +19,12 @@ def ssh_host(hostName, userName, userPassword, cmdList):
                                 for cmd in cmdList:
                                         channel.send( cmd + "\n")
                                 time.sleep(1)
-                                stdout = channel.makefile('rb') #<start print feature
-                                fout = open(hostName + '_ssh_output.txt', 'w') 
+                                stdout = channel.makefile('rb')
+                                fout = open(hostName + '_ssh_output.txt', 'w')
                                 line = stdout.read()
-                                print fout, "/n", line #takes output and makes a file with results
+                                print fout, "/n", line
                                 fout.write(line)
-                                fout.close()#end print feature>
+                                fout.close()
                                 channel.close()
 
 if __name__ == "__main__":
