@@ -30,12 +30,16 @@ vpn_networks = [IPv4Network(x) for x in [ '10.110.50.0/24']]
 
 
 
+
 #interface checker
+#compares 'ip' to an 'ip_list' (i.e. mon_networks)
 def AsaInt(ip, ip_list):
-    ip = IPv4Address(ip)
-    return any((ip in net) for net in ip_list)
+    ip = IPv4Address(ip) #converts string or integer to ip address
+    return any((ip in net) for net in ip_list) #this generator expression matches first match if it is contained in the list(i.e. mon_networks) and returns it as true
 
 #subnet calc
+#converts cidr to subnet mask
+#credit to http://stackoverflow.com/questions/23352028/how-to-convert-a-cidr-prefix-to-a-dotted-quad-netmask-in-python
 def cidr(prefix):
     return socket.inet_ntoa(struct.pack(">I", (0xffffffff << (32 - prefix)) & 0xffffffff))
 
@@ -81,7 +85,7 @@ while True:
 	srcIPconfig = IPInfo(source_ip, source_cidr)
 	dstIPconfig = IPInfo(dest_ip, dest_cidr)
 
-    #mataches source IP to ACL name
+    #matches source IP to ACL name
 	acl_name = ACLname(source_ip)
 
 	start_over = input("Need another ACL y or n? or type exit to quit: ")
@@ -95,7 +99,7 @@ while True:
 	else:
 		break
 
-	
+
 
 
 
